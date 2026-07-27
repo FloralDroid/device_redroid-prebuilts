@@ -138,8 +138,8 @@ $(foreach lib,$(vulkan_libs),\
 $(eval $(call define-redroid-prebuilt-lib,gralloc.cros,,hw/gralloc.cros.so,hw))
 
 
-# gbm gralloc
-$(eval $(call define-redroid-prebuilt-lib,gralloc.gbm,,hw/gralloc.gbm.so,hw,,$(gbm_libs)))
+# gralloc.gbm is built from the FloralDroid source fork. Keep the binary in
+# this repository only as a historical recovery artifact.
 
 
 # redroid audio
