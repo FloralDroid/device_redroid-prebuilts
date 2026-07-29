@@ -1,0 +1,84 @@
+package {
+    default_applicable_licenses: ["device_redroid_prebuilts_libva_headers_license"],
+}
+
+license {
+    name: "device_redroid_prebuilts_libva_headers_license",
+    visibility: [":__subpackages__"],
+    license_kinds: ["SPDX-license-identifier-MIT"],
+    license_text: ["third_party/libva/COPYING"],
+}
+
+cc_library_headers {
+    name: "libfloral_va_headers",
+    vendor_available: true,
+    export_include_dirs: ["third_party/libva/include"],
+}
+
+cc_defaults {
+    name: "floral_redroid_graphics_prebuilt_defaults",
+    vendor: true,
+    compile_multilib: "both",
+    installable: false,
+    check_elf_files: false,
+    strip: {
+        none: true,
+    },
+}
+
+cc_prebuilt_library_shared {
+    name: "libfloral_drm_prebuilt",
+    defaults: ["floral_redroid_graphics_prebuilt_defaults"],
+    arch: {
+        x86_64: {
+            srcs: ["prebuilts/x86_64/lib/libdrm.so.2.4.0"],
+        },
+        x86: {
+            srcs: ["prebuilts/x86/lib/libdrm.so.2.4.0"],
+        },
+        arm64: {
+            srcs: ["prebuilts/aarch64/lib/libdrm.so.2.4.0"],
+        },
+        arm: {
+            srcs: ["prebuilts/arm/lib/libdrm.so.2.4.0"],
+        },
+    },
+}
+
+cc_prebuilt_library_shared {
+    name: "libfloral_va_prebuilt",
+    defaults: ["floral_redroid_graphics_prebuilt_defaults"],
+    arch: {
+        x86_64: {
+            srcs: ["prebuilts/x86_64/lib/libva.so.2.2100.0"],
+        },
+        x86: {
+            srcs: ["prebuilts/x86/lib/libva.so.2.2100.0"],
+        },
+        arm64: {
+            srcs: ["prebuilts/aarch64/lib/libva.so.2.2100.0"],
+        },
+        arm: {
+            srcs: ["prebuilts/arm/lib/libva.so.2.2100.0"],
+        },
+    },
+}
+
+cc_prebuilt_library_shared {
+    name: "libfloral_va_drm_prebuilt",
+    defaults: ["floral_redroid_graphics_prebuilt_defaults"],
+    arch: {
+        x86_64: {
+            srcs: ["prebuilts/x86_64/lib/libva-drm.so.2.2100.0"],
+        },
+        x86: {
+            srcs: ["prebuilts/x86/lib/libva-drm.so.2.2100.0"],
+        },
+        arm64: {
+            srcs: ["prebuilts/aarch64/lib/libva-drm.so.2.2100.0"],
+        },
+        arm: {
+            srcs: ["prebuilts/arm/lib/libva-drm.so.2.2100.0"],
+        },
+    },
+}

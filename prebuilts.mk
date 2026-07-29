@@ -12,8 +12,13 @@ PRODUCT_PACKAGES += \
     gralloc.cros \
     gralloc.gbm \
     uinputd \
-    vncserver \
-    hwcomposer.redroid \
+    vncserver
+
+# Keep the upstream redroid composer available to products that do not select
+# the Floral physical display HAL.
+ifneq ($(REDROID_USE_FLORAL_HWC),true)
+PRODUCT_PACKAGES += hwcomposer.redroid
+endif
 
 
 # vaapi
