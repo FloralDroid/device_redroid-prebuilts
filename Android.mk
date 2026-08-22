@@ -95,8 +95,7 @@ $(eval $(call define-redroid-prebuilt-etc,amdgpu.ids.redroid,,libdrm/amdgpu.ids,
 
 # libs with SOVERSION
 gbm_libs := libgbm.so.1
-glapi_libs := libglapi.so.0
-libs = $(gbm_libs) $(glapi_libs)
+libs = $(gbm_libs)
 drm_libs := $(shell cd $(LOCAL_PATH)/prebuilts/$(TARGET_ARCH)/lib && find * -name 'libdrm*.so.*' -type l)
 libs += $(drm_libs)
 $(foreach lib,$(libs),\
