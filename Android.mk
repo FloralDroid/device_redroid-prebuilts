@@ -73,10 +73,7 @@ $(foreach lib,$(libs),\
     $(eval $(call define-redroid-prebuilt-lib,$(lib)_p,$(lib).so,$(lib).so)))
 
 
-# DRI
-# Keep the prebuilt driver bundle for backends not selected by source Mesa.
-# Source Mesa installs the selected symlinks from gallium_dri.
-dri_libs := libgallium_dri
+# DRI video drivers remain prebuilts; Gallium DRI is built by external/mesa3d.
 drv_libs := libgallium_drv_video
 ifneq (,$(filter $(TARGET_ARCH),x86 x86_64))
 ifeq (,$(filter $(PLATFORM_VERSION), 15 16))
@@ -88,19 +85,8 @@ $(foreach lib,$(drv_libs_intel),\
 drv_libs += $(drv_libs_intel)
 endif
 endif
-dri_links := $(shell cd $(LOCAL_PATH)/prebuilts/$(TARGET_ARCH)/lib/dri && find * -name '*_dri.so' -type l)
 drv_links := $(shell cd $(LOCAL_PATH)/prebuilts/$(TARGET_ARCH)/lib/dri && find * -name '*_drv_video.so' -type l)
 $(eval $(call define-redroid-prebuilt-lib,libgallium_drv_video,,dri/libgallium_drv_video.so,dri,$(drv_links)))
-
-# These names are the Android install aliases emitted by Mesa's Gallium
-# target. Leave the other prebuilt aliases available.
-mesa_dri_links := $(foreach d,$(BOARD_GPU_DRIVERS),$(d)_dri.so)
-mesa_dri_links += $(if $(filter swrast,$(BOARD_GPU_DRIVERS)),kms_swrast_dri.so)
-mesa_dri_links += $(if $(filter virgl,$(BOARD_GPU_DRIVERS)),virtio_gpu_dri.so)
-mesa_dri_links += $(if $(BOARD_GPU_DRIVERS),i915_dri.so i965_dri.so)
-mesa_dri_links := $(strip $(mesa_dri_links))
-dri_links := $(filter-out $(mesa_dri_links),$(dri_links))
-$(eval $(call define-redroid-prebuilt-lib,libgallium_dri,,dri/libgallium_dri.so,dri,$(dri_links)))
 
 
 ## amdgpu.ids
@@ -130,13 +116,6 @@ llvm_libs := $(shell cd $(LOCAL_PATH)/prebuilts/$(TARGET_ARCH)/lib && find * -na
 llvm_libs := $(llvm_libs:.so=)
 $(foreach lib,$(llvm_libs),\
     $(eval $(call define-redroid-prebuilt-lib,$(lib),,$(lib).so)))
-
-
-# GLES
-libs := libEGL_mesa libGLESv1_CM_mesa libGLESv2_mesa
-$(foreach lib,$(libs),\
-    $(eval $(call define-redroid-prebuilt-lib,$(lib),,egl/$(lib).so,egl,,\
-		$(dri_libs) $(glapi_libs) $(drm_libs))))
 
 
 # Vulkan
