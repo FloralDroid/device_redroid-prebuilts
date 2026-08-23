@@ -1,6 +1,7 @@
 PRODUCT_PACKAGES += \
     amdgpu.ids.redroid \
     libgallium_dri \
+    libglapi \
     libEGL_mesa \
     libGLESv1_CM_mesa \
     libGLESv2_mesa \
