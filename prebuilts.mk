@@ -11,8 +11,6 @@ PRODUCT_PACKAGES += \
     vulkan.virtio \
     vulkan.lvp \
     vulkan.nouveau \
-    gralloc.cros \
-    gralloc.gbm \
     uinputd \
     vncserver
 
